@@ -1,0 +1,22 @@
+[
+  {"pais": "México", "id": "484", "total": 7177},
+  {"pais": "Brasil", "id": "076", "total": 2422},
+  {"pais": "Portugal", "id": "620", "total": 1836},
+  {"pais": "Reino Unido", "id": "826", "total": 1628},
+  {"pais": "Estados Unidos", "id": "840", "total": 1240},
+  {"pais": "Polonia", "id": "616", "total": 826},
+  {"pais": "Argentina", "id": "032", "total": 665},
+  {"pais": "Chile", "id": "152", "total": 629},
+  {"pais": "Turquía", "id": "792", "total": 611},
+  {"pais": "Francia", "id": "250", "total": 85},
+  {"pais": "Alemania", "id": "276", "total": 56},
+  {"pais": "Irlanda", "id": "372", "total": 35},
+  {"pais": "Italia", "id": "380", "total": 31},
+  {"pais": "Luxemburgo", "id": "442", "total": 31},
+  {"pais": "Marruecos", "id": "504", "total": 9},
+  {"pais": "Suiza", "id": "756", "total": 1},
+  {"pais": "Colombia", "id": "170", "total": 1},
+  {"pais": "Perú", "id": "604", "total": 1},
+  {"pais": "Uruguay", "id": "858", "total": 1},
+  {"pais": "Venezuela", "id": "862", "total": 1}
+]
