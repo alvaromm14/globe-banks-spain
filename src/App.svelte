@@ -44,10 +44,9 @@
   let direction = 1;
   let minRotation = -20;
   let maxRotation = 100;
-  let speed = 0.25;
+  let speed = 0.3;
 
   const t = timer(() => {
-    if (dragging || tooltipData) return;
 
     rotation.update((r) => {
       let next = r + speed * direction;
@@ -62,33 +61,8 @@
   let globe;
 
   import { onMount } from "svelte";
-  import { drag } from "d3-drag";
   import { select } from "d3-selection";
   import { geoCentroid } from "d3-geo";
-
-  const DRAG_SENSITIVITY = 0.1;
-  let dragging = false;
-
-  onMount(() => {
-    const element = select(globe);
-    element.call(
-      drag()
-        .on("drag", (event) => {
-          dragging = true;
-          rotation.update((r) => {
-            let next = r + event.dx * DRAG_SENSITIVITY;
-            next = Math.max(minRotation, Math.min(maxRotation, next));
-            return next;
-          });
-        })
-        .on("end", () => {
-          dragging = false;
-
-          if ($rotation <= minRotation) direction = 1;
-          else if ($rotation >= maxRotation) direction = -1;
-        }),
-    );
-  });
 
   let tooltipData;
 
@@ -97,7 +71,7 @@
     $rotation = -center[0];
   }
 
-    window.addEventListener("DOMContentLoaded", (event) => {
+  window.addEventListener("DOMContentLoaded", (event) => {
     function updateIframeHeight() {
       const el = document.documentElement;
       const rect = el.getBoundingClientRect();
@@ -138,7 +112,7 @@
 </script>
 
 <div class="chart-container" bind:clientWidth={width}>
-  <svg {width} {height} bind:this={globe} class:dragging>
+  <svg {width} {height} bind:this={globe}>
     <Glow />
     <!-- svelte-ignore a11y-click-events-have-key-events -->
     <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -148,9 +122,6 @@
       r={width / 2}
       fill={"#ffe9e7"}
       filter="url(#glow)"
-      on:click={() => {
-        tooltipData = null;
-      }}
     />
     <!-- svelte-ignore a11y-no-static-element-interactions -->
     {#each countries as country}
@@ -164,23 +135,10 @@
         ? colorScale(country.total)
         : "white"
   }        stroke="none"
-        cursor={country?.total > 0 ? "pointer" : "default"}
-        on:click={() => {
-          if (country.total > 0) tooltipData = country;
-        }}
       />
     {/each}
     <path d={path(borders)} fill="none" stroke="white" stroke-width="0.25" />
-    {#if Tooltip}
-      <path
-        d={path(tooltipData)}
-        fill="transparent"
-        stroke="white"
-        stroke-width="2"
-      />
-    {/if}
   </svg>
-  <Tooltip data={tooltipData} />
 </div>
 
 <style>
@@ -191,26 +149,5 @@
 
   svg {
     overflow: visible;
-  }
-
-  .dragging {
-    cursor: grabbing;
-  }
-
-  h1,
-  h2 {
-    text-align: center;
-  }
-
-  h1 {
-    font-size: 1.75rem;
-    font-weight: 800;
-    margin-bottom: 0.35rem;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-    font-weight: 200;
-    margin-bottom: 1rem;
   }
 </style>
